@@ -4,5 +4,5 @@ const CreateBlog = () => {
     <div>CreateBlog</div>
   )
 }
-
+//add comment/blog comps.
 export default CreateBlog
