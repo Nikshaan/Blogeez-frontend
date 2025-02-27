@@ -1,8 +1,53 @@
-import { useState } from "react"
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Authentication = () => {
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [signIn, setSignIn] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSignin = async() => {
+    try {
+      const res = await axios.post(
+        "http://localhost:7777/signin", //hard-coded
+      {
+        emailId,
+        password,
+      },
+      {withCredentials: true}
+      );
+      dispatch(addUser(res.data));
+      return navigate("/");
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
+      console.log(err)
+    }
+  };
+
+  const handleSignUp = async() => {
+    try {
+      const res = await axios.post(
+        "http://localhost:7777/signup",
+        {firstName, lastName, emailId, password},
+        { withCredentials: true}
+      );
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch(err) {
+      setError(err?.response?.data || "Something went wrong");
+      console.log(err)
+    }
+  };
 
   const manageSignIn = () => {
     setSignIn(!signIn);
@@ -18,29 +63,30 @@ const Authentication = () => {
             <p className="text-3xl text-center font-bold p-2 mt-2">Create Your Account</p>
 
             <div className="w-full h-full flex-1 p-5 text-center">
-              <p className="text-lg font-medium text-left">Username</p>
-              <input className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your username" />
-              <p className="text-lg font-medium text-left">Email Address</p>
-              <input className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your email" />
+              <p className="text-lg font-medium text-left">First name</p>
+              <input  onChange={(e) => setFirstName(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your First name: " />
+              <p className="text-lg font-medium text-left">Last name</p>
+              <input  onChange={(e) => setLastName(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your Last name: " />
+              <p className="text-lg font-medium text-left">Email address</p>
+              <input  onChange={(e) => setEmailId(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your Email: " />
               <p className="text-lg font-medium text-left">Password</p>
-              <input className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your password" />
-              <p className="text-lg font-medium text-left">Confirm Password</p>
-              <input className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Confirm your password" />
-            
-              <button className="w-1/2 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium">Sign Up</button>
-              <p className="text-nowrap">Already have an account? <span onClick={() => manageSignIn()} className="underline cursor-pointer text-blue-700">Sign In</span></p>
+              <input  onChange={(e) => setPassword(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your Password: " />
+              <p className="text-red-500 mb-2">{error}</p>
+              <button onClick={() => handleSignUp()} className="w-1/2 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium">Sign Up</button>
+              <p className="text-nowrap">Already have an account? <span onClick={() => {manageSignIn(), setError("")} } className="underline cursor-pointer text-blue-700">Sign In</span></p>
             </div></>
+
             :<>
               <p className="text-3xl text-center font-bold p-2 mt-2">Log into Your Account</p>
 
               <div className="w-full h-full flex-1 p-5 text-center">
                 <p className="text-lg font-medium text-left">Email Address</p>
-                <input className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your email" />
+                <input onChange={(e) => setEmailId(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your email" />
                 <p className="text-lg font-medium text-left">Password</p>
-                <input className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your password" />
-
-                <button className="w-1/2 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium">Sign In</button>
-                <p className="text-nowrap">Don't have an account? <span onClick={() => manageSignIn()} className="underline cursor-pointer text-blue-700">Sign Up</span></p>
+                <input onChange={(e) => setPassword(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your password" />
+                <p className="text-red-500 mb-2">{error}</p>
+                <button onClick={() => handleSignin() } className="w-1/2 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium">Sign In</button>
+                <p className="text-nowrap">Don&apos;t have an account? <span onClick={() => { manageSignIn(), setError("") }} className="underline cursor-pointer text-blue-700">Sign Up</span></p>
               </div>
             </>
             }

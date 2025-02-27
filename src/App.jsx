@@ -4,6 +4,7 @@ import Profile from "./pages/Profile"
 import Authentication from "./pages/Authentication"
 import Blog from "./pages/Blog"
 import CreateBlog from "./pages/createBlog"
+import Usercard from "./pages/Usercard"
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
         <Route path="/authentication" element={<Authentication />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/create" element={<CreateBlog />} />
+        <Route path="/blog/:blogId" element={<Blog />} />
+        <Route path="/profile/view/:userId" element={<Usercard />} />
       </Routes>
     </>
   )
