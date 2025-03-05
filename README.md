@@ -1,8 +1,24 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Blogeez
 
-Currently, two official plugins are available:
+A blog uploading & reading website.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+
+## Tech Stack
+
+**Client:** React, Redux, TailwindCSS
+
+**Server:** Node, Express, MongoDB
+
+
+
+
+## Features
+
+- Authorization and bcrypt to store encrypted password in database.
+- npm packages of jwtWebToken and cookie-parser to sign, verify token and use cookies.
+- Create, Edit, Delete own blogs and view other user's blogs and profile.
+- My blogs section under every profile to view blogs uploaded by that user.
+- axios used to make HTTP requests.
