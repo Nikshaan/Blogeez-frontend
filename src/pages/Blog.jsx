@@ -36,7 +36,7 @@ const Blog = () => {
   const handleDelete = async() => {
     try {
       await axios.delete(`http://localhost:7777/blog/delete/${blogId}`);
-      navigate("/");
+      return navigate("/feed");
     } catch (err) {
       console.log("something went wrong" + err);
     }
@@ -50,7 +50,7 @@ const Blog = () => {
         content,
       },
       {withCredentials: true});
-      navigate("/");
+      return navigate("/feed");
     } catch (err) {
       console.log("something went wrong " + err);
     }
@@ -60,32 +60,36 @@ const Blog = () => {
     fetchBlog()
   }, []);
 
+  useEffect(()=> {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-[100svh] w-full">
+    <div className="flex flex-col min-h-[100svh] w-full mb-10">
       <Navbar />
-      <NavLink to="/">
-        <img src={back} alt="back" className="absolute top-18 left-1 h-8" />
+      <NavLink to="/feed">
+        <img src={back} alt="back" className="absolute top-18 left-2 h-8" />
       </NavLink>
-      <div className="w-full flex-1 mt-16 pb-10">
+      <div className="w-full font-roboto sm:w-[90%] md:w-[85%] lg:w-[80%] 2xl:w-[60%] m-auto flex-1 mt-12 pb-10 px-2">
           <div className="m-">
-            <p className="text-2xl font-medium ml-4">{blogData.title}</p>
+            <p className="text-2xl mx-4 mb-2 whitespace-pre-wrap font-raleway font-bold">{blogData.title}</p>
             <NavLink to={`/profile/view/${blogData.userId}`}>
-              <p className="font-light -mt-1 mb-5 ml-4">{blogData.firstName + " " + blogData.lastName}</p>
+              <p className="-mt-1 mx-4 whitespace-pre-wrap text-right px-2 font-raleway font-light cursor-pointer underline underline-offset-2">{blogData.firstName + " " + blogData.lastName}</p>
             </NavLink>
-            <p className="p-4">{blogData.content}</p>
+            <p className="p-4 whitespace-pre-wrap">{blogData.content}</p>
           </div>
       </div>
       {
-        updateBlog && <div>
-            <p onClick={() => handleDelete()}>delete</p>
-            <p onClick={() => setEditBlog(!editBlog)}>edit</p>
+        updateBlog && <div className="w-full flex justify-between sm:w-[90%] md:w-[85%] lg:w-[80%] 2xl:w-[60%] sm:m-auto mb-2">
+            <button className="m-1 border-2 px-2 cursor-pointer font-raleway font-bold" onClick={() => handleDelete()}>delete</button>
+            <button className="m-1 border-2 px-2 cursor-pointer font-raleway font-bold" onClick={() => setEditBlog(!editBlog)}>edit</button>
           </div>
       }
       {
-        editBlog && <div className="bg-red-200 flex flex-col gap-2 p-2">
-              <textarea type="text" value={title} onChange={(e) => setTitle(e.target.value) } />
-              <textarea type="text" value={content} onChange={(e) => setContent(e.target.value) } />
-                <button className="border-2 px-2" onClick={() => handleEdit()}>save changes</button>
+        editBlog && <div className="border-2 h-full flex flex-col gap-2 p-2 mb-5 sm:w-[90%] md:w-[85%] lg:w-[80%] m-1 2xl:w-[60%] sm:m-auto">
+              <textarea className="border-2 p-1" type="text" value={title} onChange={(e) => setTitle(e.target.value) } />
+              <textarea className="border-2 p-1" rows={40} type="text" value={content} onChange={(e) => setContent(e.target.value) } />
+                <button className="border-2 px-2 cursor-pointer font-raleway font-bold" onClick={() => handleEdit()}>save changes</button>
           </div>
       }
     </div>

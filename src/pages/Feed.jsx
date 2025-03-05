@@ -36,12 +36,16 @@ const Feed = () => {
     getFeed();
   }, []);
   
+  useEffect(()=> {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center">
       <Navbar />
-      <div className="w-[90%] relative flex flex-col items-center my-10 gap-2">
+      <div className="w-[90%] lg:w-[70%] 2xl:w-[50%] relative flex flex-col items-center my-10 gap-2">
         {
-          (filteredFeed.length === 0)?<p className="text-2xl font-medium">Loading...</p>
+          (filteredFeed.length === 0)?<p className="text-2xl font-medium">No blogs found!</p>
           :filteredFeed.map((blog, index) => (
               <FeedBlog key={index} blog={blog}/>   
           ))

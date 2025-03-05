@@ -19,7 +19,7 @@ const Authentication = () => {
   const handleSignin = async() => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/signin", //hard-coded
+        "http://localhost:7777/signin",
       {
         emailId,
         password,
@@ -27,7 +27,7 @@ const Authentication = () => {
       {withCredentials: true}
       );
       dispatch(addUser(res.data));
-      return navigate("/");
+      return navigate("/feed");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
       console.log(err)
@@ -42,7 +42,7 @@ const Authentication = () => {
         { withCredentials: true}
       );
       dispatch(addUser(res.data.data));
-      return navigate("/profile");
+      return navigate("/feed");
     } catch(err) {
       setError(err?.response?.data || "Something went wrong");
       console.log(err)
@@ -56,13 +56,13 @@ const Authentication = () => {
   return (
     <div className="min-h-[100svh] w-full flex justify-center items-center">
       <div className="w-full h-full flex flex-col justify-center items-center">
-        <p className="text-7xl mb-5 font-bold">BLOGeez.</p>
-        <div className="bg-[#f5c02f] flex flex-col w-[80%] min-h-[55svh] mb-10 rounded-xl border-2 border-black">
+        <p className="text-7xl mb-2 font-bold font-raleway">BLOGeez.</p>
+        <div className="bg-white flex  font-roboto flex-col w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] 2xl:w-[20%] min-h-[55svh] mb-10 rounded-xl border-2 border-black">
             {
             (signIn === true)?<>
-            <p className="text-3xl text-center font-bold p-2 mt-2">Create Your Account</p>
+            <p className="text-3xl text-center font-bold p-2 mt-2 font-raleway">Create Your Account</p>
 
-            <div className="w-full h-full flex-1 p-5 text-center">
+            <div className="w-full h-full flex-1 p-5 text-center justify-start items-start flex-col flex">
               <p className="text-lg font-medium text-left">First name</p>
               <input  onChange={(e) => setFirstName(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your First name: " />
               <p className="text-lg font-medium text-left">Last name</p>
@@ -70,23 +70,27 @@ const Authentication = () => {
               <p className="text-lg font-medium text-left">Email address</p>
               <input  onChange={(e) => setEmailId(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your Email: " />
               <p className="text-lg font-medium text-left">Password</p>
-              <input  onChange={(e) => setPassword(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your Password: " />
+              <input type="password" onChange={(e) => setPassword(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your Password: " />
               <p className="text-red-500 mb-2">{error}</p>
-              <button onClick={() => handleSignUp()} className="w-1/2 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium">Sign Up</button>
-              <p className="text-nowrap">Already have an account? <span onClick={() => {manageSignIn(), setError("")} } className="underline cursor-pointer text-blue-700">Sign In</span></p>
+              <div className="w-full flex flex-col justify-center items-center">
+                <button onClick={() => handleSignUp()} className="w-1/4 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium cursor-pointer">Sign Up</button>
+                <p className="text-nowrap">Already have an account? <span onClick={() => {manageSignIn(), setError("")} } className="underline cursor-pointer text-blue-700">Sign In</span></p>
+              </div>
             </div></>
 
             :<>
-              <p className="text-3xl text-center font-bold p-2 mt-2">Log into Your Account</p>
+              <p className="text-3xl text-center font-bold p-2 mt-2 font-raleway">Log into Your Account</p>
 
               <div className="w-full h-full flex-1 p-5 text-center">
                 <p className="text-lg font-medium text-left">Email Address</p>
-                <input onChange={(e) => setEmailId(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your email" />
+                <input type="text" onChange={(e) => setEmailId(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your email" />
                 <p className="text-lg font-medium text-left">Password</p>
-                <input onChange={(e) => setPassword(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your password" />
+                <input type="password" onChange={(e) => setPassword(e.target.value)} className="mb-5 px-1.5 py-1 w-full bg-white rounded-md border-2 border-black" placeholder="Enter your password" />
                 <p className="text-red-500 mb-2">{error}</p>
-                <button onClick={() => handleSignin() } className="w-1/2 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium">Sign In</button>
-                <p className="text-nowrap">Don&apos;t have an account? <span onClick={() => { manageSignIn(), setError("") }} className="underline cursor-pointer text-blue-700">Sign Up</span></p>
+                <div className="w-full flex flex-col justify-center items-center">
+                  <button onClick={() => handleSignin() } className="w-1/4 mb-2.5 bg-white py-1 rounded-full border-2 border-black font-medium cursor-pointer">Sign In</button>
+                  <p className="text-nowrap">Don&apos;t have an account? <span onClick={() => { manageSignIn(), setError("") }} className="underline cursor-pointer text-blue-700">Sign Up</span></p>
+                </div>
               </div>
             </>
             }

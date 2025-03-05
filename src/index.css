@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+    --font-roboto: "Roboto"; 
+    --font-raleway: "Raleway";
+  }
 
 body{
     min-width: 400px;
