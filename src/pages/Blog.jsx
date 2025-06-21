@@ -20,7 +20,11 @@ const Blog = () => {
   try {
     const res = await axios.get(
       `${BACKEND_URL}/blog/view/${blogId}`,
-    {withCredentials: true}
+    { headers: {
+        'Content-Type': 'application/json', 
+      },
+      credentials: 'include',
+      withCredentials: true}
     );
     setBlogData(res.data);
     setTitle(res.data.title);

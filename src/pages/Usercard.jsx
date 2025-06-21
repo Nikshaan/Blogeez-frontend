@@ -21,8 +21,9 @@ const Usercard = () => {
     const res = await axios.get(
       `${BACKEND_URL}/profile/view/${userId}`,
      { headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', 
       },
+      credentials: 'include',
       withCredentials: true}
     );
     setUserData(res.data);

@@ -17,6 +17,7 @@ const Feed = () => {
         { headers: {
         'Content-Type': 'application/json', 
       },
+      credentials: 'include',
       withCredentials: true}
       );
       setFeed(res?.data?.data);

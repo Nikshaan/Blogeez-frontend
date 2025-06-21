@@ -16,9 +16,10 @@ const CreateBlog = () => {
       await axios.post(
         `${BACKEND_URL}/blog/create`,
         {title, content},
-        { headers: {
+       { headers: {
         'Content-Type': 'application/json', 
       },
+      credentials: 'include',
       withCredentials: true}
       );
       return navigate("/feed");

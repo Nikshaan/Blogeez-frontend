@@ -9,9 +9,10 @@ const MyBlogs = ({userId}) => {
         try {
           const res = await axios.get(
             `${BACKEND_URL}/blogs/user/${userId}`,
-          { headers: {
-        'Content-Type': 'application/json',  
+         { headers: {
+        'Content-Type': 'application/json', 
       },
+      credentials: 'include',
       withCredentials: true}
           );
           setBlogs(res.data);

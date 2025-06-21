@@ -49,6 +49,7 @@ const Authentication = () => {
        { headers: {
         'Content-Type': 'application/json', 
       },
+       credentials: 'include',
       withCredentials: true}
       );
       dispatch(addUser(res.data.data));

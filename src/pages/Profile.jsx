@@ -17,8 +17,9 @@ const Profile = () => {
        await axios.post(
         `${BACKEND_URL}/signout`, {},
       { headers: {
-        'Content-Type': 'application/json',  
+        'Content-Type': 'application/json', 
       },
+      credentials: 'include',
       withCredentials: true}
       );
       dispatch(removeUser());

@@ -33,6 +33,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
         { headers: {
         'Content-Type': 'application/json', 
       },
+      credentials: 'include',
       withCredentials: true}
       );
       dispatch(addUser(res?.data?.data));
