@@ -15,8 +15,11 @@ const Profile = () => {
   const handleSignOut = async() => {
     try {
        await axios.post(
-        `http://localhost:7777/signout`, {},
-      {withCredentials: true}
+        `https://blogeez-backend-1.onrender.com/signout`, {},
+      { headers: {
+        'Content-Type': 'application/json',  
+      },
+      withCredentials: true}
       );
       dispatch(removeUser());
       return navigate("/authentication");

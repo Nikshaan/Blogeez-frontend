@@ -18,7 +18,7 @@ const Blog = () => {
   const fetchBlog = async() => {
   try {
     const res = await axios.get(
-      `http://localhost:7777/blog/view/${blogId}`,
+      `https://blogeez-backend-1.onrender.com/blog/view/${blogId}`,
     {withCredentials: true}
     );
     setBlogData(res.data);
@@ -35,7 +35,7 @@ const Blog = () => {
   
   const handleDelete = async() => {
     try {
-      await axios.delete(`http://localhost:7777/blog/delete/${blogId}`);
+      await axios.delete(`https://blogeez-backend-1.onrender.com/blog/delete/${blogId}`);
       return navigate("/feed");
     } catch (err) {
       console.log("something went wrong" + err);
@@ -44,12 +44,15 @@ const Blog = () => {
 
   const handleEdit = async() => {
     try {
-      await axios.patch(`http://localhost:7777/blog/edit/${blogId}`,
+      await axios.patch(`https://blogeez-backend-1.onrender.com/blog/edit/${blogId}`,
       {
         title,
         content,
       },
-      {withCredentials: true});
+      { headers: {
+        'Content-Type': 'application/json', 
+      },
+      withCredentials: true});
       return navigate("/feed");
     } catch (err) {
       console.log("something went wrong " + err);

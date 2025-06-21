@@ -14,9 +14,12 @@ const CreateBlog = () => {
   const handleBlogPost = async() => {
     try {
       await axios.post(
-        "http://localhost:7777/blog/create",
+        "https://blogeez-backend-1.onrender.com/blog/create",
         {title, content},
-        { withCredentials: true}
+        { headers: {
+        'Content-Type': 'application/json', 
+      },
+      withCredentials: true}
       );
       return navigate("/feed");
 

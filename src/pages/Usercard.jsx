@@ -19,8 +19,11 @@ const Usercard = () => {
   const fetchUser = async() => {
   try {
     const res = await axios.get(
-      `http://localhost:7777/profile/view/${userId}`,
-    {withCredentials: true}
+      `https://blogeez-backend-1.onrender.com/profile/view/${userId}`,
+     { headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true}
     );
     setUserData(res.data);
 

@@ -11,9 +11,12 @@ const Feed = () => {
 
   const getFeed = async() => {
     try {
-      const res = await axios.get("http://localhost:7777/feed", {
-        withCredentials: true,
-      });
+      const res = await axios.get("https://blogeez-backend-1.onrender.com/feed", 
+        { headers: {
+        'Content-Type': 'application/json', 
+      },
+      withCredentials: true}
+      );
       setFeed(res?.data?.data);
       setFilteredFeed(res?.data?.data);
       

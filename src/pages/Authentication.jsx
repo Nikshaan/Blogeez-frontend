@@ -19,7 +19,7 @@ const Authentication = () => {
   const handleSignin = async() => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/signin",
+        "https://blogeez-backend-1.onrender.com/signin",
       {
         emailId,
         password,
@@ -37,9 +37,12 @@ const Authentication = () => {
   const handleSignUp = async() => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/signup",
+        "https://blogeez-backend-1.onrender.com/signup",
         {firstName, lastName, emailId, password},
-        { withCredentials: true}
+       { headers: {
+        'Content-Type': 'application/json', 
+      },
+      withCredentials: true}
       );
       dispatch(addUser(res.data.data));
       return navigate("/feed");

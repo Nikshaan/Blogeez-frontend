@@ -8,8 +8,11 @@ const MyBlogs = ({userId}) => {
     const fetchBlogs = async() => {
         try {
           const res = await axios.get(
-            `http://localhost:7777/blogs/user/${userId}`,
-          {withCredentials: true}
+            `https://blogeez-backend-1.onrender.com/blogs/user/${userId}`,
+          { headers: {
+        'Content-Type': 'application/json',  
+      },
+      withCredentials: true}
           );
           setBlogs(res.data);
       

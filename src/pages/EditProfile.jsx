@@ -21,7 +21,7 @@ const EditProfile = ({user}) => {
     setError("");
     try {
       const res = await axios.patch(
-        "http://localhost:7777/profile/edit",
+        "https://blogeez-backend-1.onrender.com/profile/edit",
         {
           firstName,
           lastName,
@@ -30,7 +30,10 @@ const EditProfile = ({user}) => {
           gender,
           about,
         },
-        { withCredentials: true }
+        { headers: {
+        'Content-Type': 'application/json', 
+      },
+      withCredentials: true}
       );
       dispatch(addUser(res?.data?.data));
       navigate(`/profile/view/${user._id}`);
