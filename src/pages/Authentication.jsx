@@ -3,7 +3,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+console.log('Token:', localStorage.getItem('token'));
 const Authentication = () => {
 
   const dispatch = useDispatch();
@@ -17,15 +18,21 @@ const Authentication = () => {
   const [error, setError] = useState("");
 
   const handleSignin = async() => {
+    console.log(BACKEND_URL)
     try {
       const res = await axios.post(
-        "https://blogeez-backend-1.onrender.com/signin",
+        `${BACKEND_URL}/signin`,
       {
         emailId,
         password,
       },
-      {withCredentials: true}
+      { headers: {
+        'Content-Type': 'application/json', 
+      },
+      credentials: 'include',
+      withCredentials: true}
       );
+
       dispatch(addUser(res.data));
       return navigate("/feed");
     } catch (err) {
@@ -37,7 +44,7 @@ const Authentication = () => {
   const handleSignUp = async() => {
     try {
       const res = await axios.post(
-        "https://blogeez-backend-1.onrender.com/signup",
+        `${BACKEND_URL}/signup`,
         {firstName, lastName, emailId, password},
        { headers: {
         'Content-Type': 'application/json', 

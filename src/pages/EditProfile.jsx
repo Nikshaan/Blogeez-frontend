@@ -15,13 +15,13 @@ const EditProfile = ({user}) => {
   const [gender, setGender] = useState(user.gender || "-");
   const [about, setAbout] = useState(user.about || "-");
   const [error, setError] = useState("");
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const saveProfile = async () => {
     setError("");
     try {
       const res = await axios.patch(
-        "https://blogeez-backend-1.onrender.com/profile/edit",
+        `${BACKEND_URL}/profile/edit`,
         {
           firstName,
           lastName,

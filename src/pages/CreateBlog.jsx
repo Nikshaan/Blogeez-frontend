@@ -2,7 +2,7 @@ import { useState } from "react"
 import Navbar from "../components/Navbar"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const CreateBlog = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const CreateBlog = () => {
   const handleBlogPost = async() => {
     try {
       await axios.post(
-        "https://blogeez-backend-1.onrender.com/blog/create",
+        `${BACKEND_URL}/blog/create`,
         {title, content},
         { headers: {
         'Content-Type': 'application/json', 

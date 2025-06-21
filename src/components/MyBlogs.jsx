@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import FeedBlog from "./FeedBlog";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const MyBlogs = ({userId}) => {
     const [blogs, setBlogs] = useState([]);
     
     const fetchBlogs = async() => {
         try {
           const res = await axios.get(
-            `https://blogeez-backend-1.onrender.com/blogs/user/${userId}`,
+            `${BACKEND_URL}/blogs/user/${userId}`,
           { headers: {
         'Content-Type': 'application/json',  
       },

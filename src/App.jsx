@@ -3,10 +3,10 @@ import Feed from "./pages/Feed"
 import Profile from "./pages/Profile"
 import Authentication from "./pages/Authentication"
 import Blog from "./pages/Blog"
-import CreateBlog from "./pages/createBlog"
+import CreateBlog from "./pages/CreateBlog"
 import Usercard from "./pages/Usercard"
 import { useSelector } from "react-redux"
-
+console.log('Token:', localStorage.getItem('token'));
 function App() {
   const user  = useSelector((store) => store.user);
   return (

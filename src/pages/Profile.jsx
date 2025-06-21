@@ -5,7 +5,7 @@ import Usercard from "./Usercard";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const Profile = () => {
   const user  = useSelector((store) => store.user);
   const [edit, setEdit] = useState(false);
@@ -15,7 +15,7 @@ const Profile = () => {
   const handleSignOut = async() => {
     try {
        await axios.post(
-        `https://blogeez-backend-1.onrender.com/signout`, {},
+        `${BACKEND_URL}/signout`, {},
       { headers: {
         'Content-Type': 'application/json',  
       },

@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import back from "../assets/back.png";
 import MyBlogs from "../components/MyBlogs";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const Usercard = () => {
   let { userId } = useParams();
   const user  = useSelector((store) => store.user);
@@ -19,7 +19,7 @@ const Usercard = () => {
   const fetchUser = async() => {
   try {
     const res = await axios.get(
-      `https://blogeez-backend-1.onrender.com/profile/view/${userId}`,
+      `${BACKEND_URL}/profile/view/${userId}`,
      { headers: {
         'Content-Type': 'application/json',
       },

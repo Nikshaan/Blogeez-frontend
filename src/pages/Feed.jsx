@@ -3,7 +3,8 @@ import FeedBlog from "../components/FeedBlog"
 import Navbar from "../components/Navbar"
 import axios from "axios";
 import { useSelector } from "react-redux";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+console.log('Token:', localStorage.getItem('token'));
 const Feed = () => {
   const search = useSelector((store) => store.blog); 
   const [feed, setFeed] = useState([]);
@@ -11,7 +12,8 @@ const Feed = () => {
 
   const getFeed = async() => {
     try {
-      const res = await axios.get("https://blogeez-backend-1.onrender.com/feed", 
+      console.log('Token:', localStorage.getItem('token'));
+      const res = await axios.get(`${BACKEND_URL}/feed`, 
         { headers: {
         'Content-Type': 'application/json', 
       },

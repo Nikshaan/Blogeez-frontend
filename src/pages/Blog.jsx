@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Blog = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Blog = () => {
   const fetchBlog = async() => {
   try {
     const res = await axios.get(
-      `https://blogeez-backend-1.onrender.com/blog/view/${blogId}`,
+      `${BACKEND_URL}/blog/view/${blogId}`,
     {withCredentials: true}
     );
     setBlogData(res.data);
@@ -35,7 +36,7 @@ const Blog = () => {
   
   const handleDelete = async() => {
     try {
-      await axios.delete(`https://blogeez-backend-1.onrender.com/blog/delete/${blogId}`);
+      await axios.delete(`${BACKEND_URL}/blog/delete/${blogId}`);
       return navigate("/feed");
     } catch (err) {
       console.log("something went wrong" + err);
@@ -44,7 +45,7 @@ const Blog = () => {
 
   const handleEdit = async() => {
     try {
-      await axios.patch(`https://blogeez-backend-1.onrender.com/blog/edit/${blogId}`,
+      await axios.patch(`${BACKEND_URL}/blog/edit/${blogId}`,
       {
         title,
         content,
